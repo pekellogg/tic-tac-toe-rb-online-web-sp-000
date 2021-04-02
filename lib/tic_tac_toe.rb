@@ -82,16 +82,13 @@ end
 # returns the winning array or false
 def won?(board)
   WIN_COMBINATIONS.each do |winning_combo|
-    win_index1 = winning_combo[0]
-    win_index2 = winning_combo[1]
-    win_index3 = winning_combo[2]
-    position1 = board[win_index1]
-    position2 = board[win_index2]
-    position3 = board[win_index3]
+    winning_position_1 = board[winning_combo[0]]
+    winning_position_2 = board[winning_combo[1]]
+    winning_position_3 = board[winning_combo[2]]
   
-    if position1 == "X" && position2 == "X" && position3 == "X"
+    if winning_position_1 == "X" && winning_position_2 == "X" && winning_position_3 == "X"
       return winning_combo # use explicit return to disrupt execution flowcontrol flow
-    elsif position1 == "O" && position2 == "O" && position3 == "O"
+    elsif winning_position_1 == "O" && winning_position_2 == "O" && winning_position_3 == "O"
       return winning_combo
     end
   end
@@ -130,21 +127,9 @@ end
 
 # returns the token of the winning player, else nil
 def winner(board)
-  if won?(board)
-    WIN_COMBINATIONS.each do |winning_combo|
-      win_index1 = winning_combo[0]
-      win_index2 = winning_combo[1]
-      win_index3 = winning_combo[2]
-      position1 = board[win_index1]
-      position2 = board[win_index2]
-      position3 = board[win_index3]
-    
-      if position1 == "X" && position2 == "X" && position3 == "X"
-        return board[win_index1] # use explicit return to disrupt execution flowcontrol flow
-      elsif position1 == "O" && position2 == "O" && position3 == "O"
-        return board[win_index1]
-      end
-    end
+  winning_combo = won?(board)
+  if winning_combo
+    return board[winning_combo[0]]
   else
     nil
   end
